@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disclaimer - FundWise</title>
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --border-color: #e5e7eb;
+            --emerald: #10b981;
+            --accent-bg: #ecfdf5;
+            --shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
+        }
+        [data-theme="dark"] {
+            --bg-primary: #000000;
+            --bg-card: #0f0f0f;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --border-color: #1f1f1f;
+            --accent-bg: #1a1a1a;
+            --shadow: 0 1px 3px 0 rgba(255,255,255,0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; transition: background 0.3s, color 0.3s; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+        .header { background: var(--bg-card); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; }
+        .nav-wrapper { display: flex; justify-content: space-between; align-items: center; height: 64px; }
+        .logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--text-primary); font-weight: 700; font-size: 1.25rem; }
+        .nav-desktop { display: none; align-items: center; gap: 2rem; }
+        @media (min-width: 768px) { .nav-desktop { display: flex; } }
+        .nav-link { color: var(--text-secondary); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+        .nav-link:hover { color: var(--emerald); }
+        .dropdown { position: relative; }
+        .dropdown-btn { background: none; border: none; color: var(--text-secondary); font-size: 1rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 0.25rem; }
+        .dropdown-menu { position: absolute; top: 100%; left: 0; margin-top: 0.5rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 0.5rem; min-width: 220px; display: none; flex-direction: column; padding: 0.5rem 0; box-shadow: var(--shadow); }
+        .dropdown-menu.active { display: flex; }
+        .dropdown-menu a { padding: 0.75rem 1rem; color: var(--text-secondary); text-decoration: none; font-size: 0.875rem; }
+        .dropdown-menu a:hover { background: var(--bg-primary); color: var(--emerald); }
+        .btn-primary { background: var(--emerald); color: white; padding: 0.5rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: all 0.2s; }
+        .btn-primary:hover { background: #059669; transform: translateY(-1px); }
+        .theme-toggle { background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 0.5rem; cursor: pointer; }
+        .hidden { display: none !important; }
+        .mobile-controls { display: flex; gap: 0.5rem; }
+        @media (min-width: 768px) { .mobile-controls { display: none; } }
+        .mobile-menu-btn { background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 0.5rem; cursor: pointer; }
+        .mobile-menu { display: none; flex-direction: column; gap: 0.5rem; padding: 1rem 0; border-top: 1px solid var(--border-color); }
+        .mobile-menu.active { display: flex; }
+        .mobile-menu a { padding: 0.75rem 0; color: var(--text-secondary); text-decoration: none; }
+        .legal-content { max-width: 800px; margin: 3rem auto 4rem; }
+        .legal-header { margin-bottom: 2rem; }
+        .legal-header h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .legal-header p { color: var(--text-secondary); font-size: 0.9375rem; }
+        .legal-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 1rem; padding: 2.5rem; }
+        .legal-card h2 { font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; }
+        .legal-card h2:first-child { margin-top: 0; }
+        .legal-card p { color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7; }
+        .legal-card ul { margin-left: 1.5rem; color: var(--text-secondary); margin-bottom: 1rem; }
+        .legal-card li { margin-bottom: 0.5rem; }
+        .legal-card strong { color: var(--text-primary); }
+        .warning-box {
+            background: var(--accent-bg);
+            border: 2px solid var(--emerald);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        .warning-box h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        .footer { background: var(--bg-card); border-top: 1px solid var(--border-color); padding: 3rem 0 1.5rem; margin-top: 4rem; }
+        .footer-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-bottom: 2rem; }
+        @media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(4, 1fr); } }
+        .footer-logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1.125rem; margin-bottom: 1rem; }
+        .footer-col h4 { font-weight: 600; margin-bottom: 1rem; }
+        .footer-col a { display: block; color: var(--text-secondary); text-decoration: none; font-size: 0.875rem; margin-bottom: 0.5rem; }
+        .footer-col a:hover { color: var(--emerald); }
+        .footer-col p { color: var(--text-secondary); font-size: 0.875rem; }
+        .footer-bottom { padding-top: 2rem; border-top: 1px solid var(--border-color); text-align: center; }
+        .footer-bottom p { color: var(--text-secondary); font-size: 0.875rem; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M6 26L12 20L18 24L26 12" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M20 12H26V18" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>FundWise</span>
+                </a>
+                <nav class="nav-desktop">
+                    <div class="dropdown">
+                        <button class="dropdown-btn" onclick="toggleDropdown()">Mutual Funds <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M4 6l4 4 4-4"/></svg></button>
+                        <div class="dropdown-menu" id="dropdown-menu">
+                            <a href="what-are-mf.html">What are Mutual Funds</a>
+                            <a href="types-of-mf.html">Types of Mutual Funds</a>
+                            <a href="sip-explained.html">SIP Explained</a>
+                            <a href="risk-returns.html">Risk vs Returns</a>
+                            <a href="taxation.html">Taxation</a>
+                        </div>
+                    </div>
+                    <a href="sip.html" class="nav-link">SIP Calculator</a>
+                    <a href="start.html" class="btn-primary">Start Investing Now</a>
+                    <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle">
+                        <svg class="sun-icon" width="20" height="20" fill="currentColor"><path d="M10 3V1M10 19v-2M17 10h2M1 10h2M15.5 15.5l1.4 1.4M3.1 3.1l1.4 1.4M15.5 4.5l1.4-1.4M3.1 16.9l1.4-1.4M13 10a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        <svg class="moon-icon hidden" width="20" height="20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+                    </button>
+                </nav>
+                <div class="mobile-controls">
+                    <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle-mobile">
+                        <svg class="sun-icon" width="20" height="20" fill="currentColor"><path d="M10 3V1M10 19v-2M17 10h2M1 10h2M15.5 15.5l1.4 1.4M3.1 3.1l1.4 1.4M15.5 4.5l1.4-1.4M3.1 16.9l1.4-1.4M13 10a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        <svg class="moon-icon hidden" width="20" height="20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+                    </button>
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                        <svg class="menu-icon" width="24" height="24" fill="none" stroke="currentColor"><path d="M3 12h18M3 6h18M3 18h18" stroke-width="2" stroke-linecap="round"/></svg>
+                        <svg class="close-icon hidden" width="24" height="24" fill="none" stroke="currentColor"><path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="mobile-menu" id="mobile-menu">
+                <a href="what-are-mf.html">What are Mutual Funds</a>
+                <a href="types-of-mf.html">Types of Mutual Funds</a>
+                <a href="sip-explained.html">SIP Explained</a>
+                <a href="risk-returns.html">Risk vs Returns</a>
+                <a href="taxation.html">Taxation</a>
+                <a href="sip.html">SIP Calculator</a>
+                <a href="start.html" class="btn-primary">Start Investing Now</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="legal-content">
+            <div class="legal-header">
+                <h1>Disclaimer</h1>
+                <p>Last updated: January 30, 2026</p>
+            </div>
+
+            <div class="legal-card">
+                <div class="warning-box">
+                    <h3>⚠️ IMPORTANT NOTICE</h3>
+                    <p><strong>FundWise is an educational platform only. All information provided is for educational and informational purposes. This is NOT financial, investment, tax, or legal advice.</strong></p>
+                </div>
+
+                <h2>1. No Investment Advice</h2>
+                <p>The content on FundWise, including articles, calculators, tools, and recommendations, does not constitute professional investment advice. We do not recommend or endorse any specific securities, investment products, or strategies.</p>
+                <p>All investment decisions should be made after consulting with a SEBI-registered financial advisor who understands your personal financial situation, goals, and risk tolerance.</p>
+
+                <h2>2. Educational Purpose Only</h2>
+                <p>FundWise provides educational content to help users understand mutual funds and investment concepts. This information is presented in simplified terms for learning purposes and may not cover all nuances, risks, or regulatory requirements.</p>
+
+                <h2>3. No Guarantee of Accuracy</h2>
+                <p>While we strive to provide accurate and up-to-date information:</p>
+                <ul>
+                    <li>Information may become outdated as regulations, tax laws, and market conditions change</li>
+                    <li>Calculations from our tools are estimates based on user inputs and assumptions</li>
+                    <li>Past performance data, if mentioned, does not guarantee future results</li>
+                    <li>We make no representations about the completeness or accuracy of any information</li>
+                </ul>
+
+                <h2>4. Investment Risks</h2>
+                <p>All investments carry risk, including:</p>
+                <ul>
+                    <li>The risk of losing some or all of your principal investment</li>
+                    <li>Market volatility and fluctuations in value</li>
+                    <li>Inflation risk, liquidity risk, and interest rate risk</li>
+                    <li>Regulatory and tax changes that may affect returns</li>
+                </ul>
+                <p><strong>You should never invest money you cannot afford to lose.</strong></p>
+
+                <h2>5. Calculator and Tools Disclaimer</h2>
+                <p>Our SIP calculator and investment recommendation tools:</p>
+                <ul>
+                    <li>Provide estimates based on user inputs and mathematical formulas</li>
+                    <li>Use assumed rates of return that may not reflect actual market performance</li>
+                    <li>Do not account for all fees, taxes, or individual circumstances</li>
+                    <li>Should be used for illustrative purposes only</li>
+                </ul>
+                <p>Actual investment results will vary and may be significantly different from calculator projections.</p>
+
+                <h2>6. Tax Information Disclaimer</h2>
+                <p>Tax information provided on FundWise is general in nature and based on current tax laws in India. Tax laws are subject to change, and individual tax situations vary. Always consult a qualified tax professional for advice specific to your situation.</p>
+
+                <h2>7. Third-Party Content and Links</h2>
+                <p>FundWise may contain links to third-party websites or reference third-party information. We are not responsible for the accuracy, legality, or content of external sites. These links are provided for convenience only and do not constitute endorsement.</p>
+
+                <h2>8. Not a Registered Advisor</h2>
+                <p>FundWise is not registered with SEBI (Securities and Exchange Board of India) as:</p>
+                <ul>
+                    <li>An investment advisor</li>
+                    <li>A stock broker</li>
+                    <li>A mutual fund distributor</li>
+                    <li>Any other financial services provider</li>
+                </ul>
+                <p>We do not offer personalized investment advice or execute transactions.</p>
+
+                <h2>9. No Warranties</h2>
+                <p>FundWise is provided "as is" without any warranties of any kind, either express or implied, including but not limited to:</p>
+                <ul>
+                    <li>Warranties of merchantability or fitness for a particular purpose</li>
+                    <li>Warranties that the Website will be error-free or uninterrupted</li>
+                    <li>Warranties regarding the accuracy or reliability of information</li>
+                </ul>
+
+                <h2>10. Limitation of Liability</h2>
+                <p>To the maximum extent permitted by law, FundWise and its owners, employees, and affiliates shall not be liable for any losses, damages, or negative outcomes resulting from:</p>
+                <ul>
+                    <li>Investment decisions made based on information from this Website</li>
+                    <li>Use of our calculators or tools</li>
+                    <li>Reliance on any content provided</li>
+                    <li>Errors, omissions, or inaccuracies in content</li>
+                </ul>
+
+                <h2>11. User Responsibility</h2>
+                <p>By using FundWise, you acknowledge that:</p>
+                <ul>
+                    <li>You are solely responsible for your investment decisions</li>
+                    <li>You will conduct your own research and due diligence</li>
+                    <li>You will seek professional advice before making financial decisions</li>
+                    <li>You understand and accept all investment risks</li>
+                </ul>
+
+                <h2>12. Changes to Disclaimer</h2>
+                <p>We reserve the right to modify this Disclaimer at any time. Changes will be effective immediately upon posting. Your continued use of the Website constitutes acceptance of the updated Disclaimer.</p>
+
+                <div class="warning-box" style="margin-top: 2rem;">
+                    <h3>📢 Final Reminder</h3>
+                    <p><strong>Invest Wisely. Mutual fund investments are subject to market risks. Read all scheme-related documents carefully before investing. Past performance is not indicative of future returns. Always consult a SEBI-registered financial advisor.</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <svg width="24" height="24" fill="none"><path d="M6 26L12 20L18 24L26 12" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 12H26V18" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <span>FundWise</span>
+                    </div>
+                    <p>Empowering Gen-Z to make smart investment decisions.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Learn</h4>
+                    <a href="what-are-mf.html">What are Mutual Funds</a>
+                    <a href="types-of-mf.html">Types of Mutual Funds</a>
+                    <a href="sip-explained.html">SIP Explained</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Tools</h4>
+                    <a href="sip.html">SIP Calculator</a>
+                    <a href="start.html">Get Recommendations</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <a href="terms.html">Terms & Conditions</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="disclaimer.html">Disclaimer</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 FundWise. Educational purposes only. Not investment advice.</p>
+            </div>
+        </div>
+        <script>
+    function initializeTheme() {
+        const theme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+        updateIcons(theme);
+    }
+    function toggleTheme() {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        updateIcons(next);
+    }
+    function updateIcons(theme) {
+        ['theme-toggle', 'theme-toggle-mobile'].forEach(id => {
+            const btn = document.getElementById(id);
+            if (btn) {
+                const sun = btn.querySelector('.sun-icon');
+                const moon = btn.querySelector('.moon-icon');
+                if (theme === 'dark') {
+                    sun.classList.remove('hidden');
+                    moon.classList.add('hidden');
+                } else {
+                    sun.classList.add('hidden');
+                    moon.classList.remove('hidden');
+                }
+            }
+        });
+    }
+    function toggleDropdown() { document.getElementById('dropdown-menu').classList.toggle('active'); }
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const menuIcon = document.querySelector('.menu-icon');
+        const closeIcon = document.querySelector('.close-icon');
+        menu.classList.toggle('active');
+        menuIcon.classList.toggle('hidden');
+        closeIcon.classList.toggle('hidden');
+    }
+    document.addEventListener('click', (e) => {
+        const dropdown = document.getElementById('dropdown-menu');
+        const btn = document.querySelector('.dropdown-btn');
+        if (dropdown && btn && !dropdown.contains(e.target) && !btn.contains(e.target)) {
+            dropdown.classList.remove('active');
+        }
+    });
+    document.addEventListener('DOMContentLoaded', initializeTheme);
+</script>
+</body>
+</html>

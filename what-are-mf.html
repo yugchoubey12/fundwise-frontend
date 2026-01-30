@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What are Mutual Funds - FundWise</title>
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --border-color: #e5e7eb;
+            --emerald: #10b981;
+            --accent-bg: #ecfdf5;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #000000;
+            --bg-card: #0f0f0f;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --border-color: #1f1f1f;
+            --accent-bg: #1a1a1a;
+            --shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .nav-desktop {
+            display: none;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .nav-desktop { display: flex; }
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--emerald);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 0.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            min-width: 220px;
+            display: none;
+            flex-direction: column;
+            padding: 0.5rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .dropdown-menu.active {
+            display: flex;
+        }
+
+        .dropdown-menu a {
+            padding: 0.75rem 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--bg-primary);
+            color: var(--emerald);
+        }
+
+        .btn-primary {
+            background: var(--emerald);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+
+        .theme-toggle {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .mobile-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .mobile-controls { display: none; }
+        }
+
+        .mobile-menu-btn {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 1rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            padding: 0.75rem 0;
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .article-header {
+            max-width: 800px;
+            margin: 3rem auto 2rem;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 0.6s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .article-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .article-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+        }
+
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 0 4rem;
+        }
+
+        .content-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeIn 0.6s 0.2s forwards;
+        }
+
+        .content-card h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .content-card p {
+            color: var(--text-secondary);
+            font-size: 1.0625rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .content-card ul {
+            margin-left: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .content-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        .analogy-box {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--emerald);
+        }
+
+        .analogy-box h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .analogy-box p {
+            color: var(--text-secondary);
+        }
+
+        .example-box {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .example-box strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .example-box p {
+            color: var(--text-secondary);
+        }
+
+        .cta-nav {
+            max-width: 800px;
+            margin: 3rem auto;
+            display: flex;
+            gap: 1rem;
+            flex-direction: column;
+        }
+
+        @media (min-width: 640px) {
+            .cta-nav {
+                flex-direction: row;
+            }
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            padding: 0.75rem 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--emerald);
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 0 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-col h4 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-col a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-col a:hover {
+            color: var(--emerald);
+        }
+
+        .footer-col p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M6 26L12 20L18 24L26 12" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M20 12H26V18" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>FundWise</span>
+                </a>
+                <nav class="nav-desktop">
+                    <div class="dropdown">
+                        <button class="dropdown-btn" onclick="toggleDropdown()">
+                            Mutual Funds
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M4 6l4 4 4-4"/></svg>
+                        </button>
+                        <div class="dropdown-menu" id="dropdown-menu">
+                            <a href="what-are-mf.html">What are Mutual Funds</a>
+                            <a href="types-of-mf.html">Types of Mutual Funds</a>
+                            <a href="sip-explained.html">SIP Explained</a>
+                            <a href="risk-returns.html">Risk vs Returns</a>
+                            <a href="taxation.html">Taxation</a>
+                        </div>
+                    </div>
+                    <a href="sip.html" class="nav-link">SIP Calculator</a>
+                    <a href="start.html" class="btn-primary">Start Investing Now</a>
+                    <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle">
+                        <svg class="sun-icon" width="20" height="20" fill="currentColor"><path d="M10 3V1M10 19v-2M17 10h2M1 10h2M15.5 15.5l1.4 1.4M3.1 3.1l1.4 1.4M15.5 4.5l1.4-1.4M3.1 16.9l1.4-1.4M13 10a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        <svg class="moon-icon hidden" width="20" height="20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+                    </button>
+                </nav>
+                <div class="mobile-controls">
+                    <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle-mobile">
+                        <svg class="sun-icon" width="20" height="20" fill="currentColor"><path d="M10 3V1M10 19v-2M17 10h2M1 10h2M15.5 15.5l1.4 1.4M3.1 3.1l1.4 1.4M15.5 4.5l1.4-1.4M3.1 16.9l1.4-1.4M13 10a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        <svg class="moon-icon hidden" width="20" height="20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+                    </button>
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                        <svg class="menu-icon" width="24" height="24" fill="none" stroke="currentColor"><path d="M3 12h18M3 6h18M3 18h18" stroke-width="2" stroke-linecap="round"/></svg>
+                        <svg class="close-icon hidden" width="24" height="24" fill="none" stroke="currentColor"><path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="mobile-menu" id="mobile-menu">
+                <a href="what-are-mf.html">What are Mutual Funds</a>
+                <a href="types-of-mf.html">Types of Mutual Funds</a>
+                <a href="sip-explained.html">SIP Explained</a>
+                <a href="risk-returns.html">Risk vs Returns</a>
+                <a href="taxation.html">Taxation</a>
+                <a href="sip.html">SIP Calculator</a>
+                <a href="start.html" class="btn-primary">Start Investing Now</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="article-header">
+            <h1>What Are Mutual Funds?</h1>
+            <p>The basics, explained in 5 minutes. No finance degree needed.</p>
+        </div>
+
+        <div class="article-content">
+            <div class="content-card">
+                <p>A mutual fund is like a group investment plan where you and thousands of other people pool your money together. A professional fund manager then invests this pooled money in stocks, bonds, or other securities on behalf of everyone.</p>
+
+                <div class="analogy-box">
+                    <h4>🍕 Think of it like ordering pizza with friends</h4>
+                    <p>Instead of buying a whole pizza alone (expensive!), you split the cost with friends. Everyone gets a slice, and you all enjoy the variety. Similarly, with mutual funds, you pool money with others to buy a diversified portfolio of investments that you couldn't afford alone.</p>
+                </div>
+
+                <p>When you invest in a mutual fund, you buy "units" of the fund. Each unit represents your share of ownership in the fund's portfolio. As the investments grow in value, so does the value of your units.</p>
+
+                <div class="example-box">
+                    <strong>Real Example:</strong>
+                    <p>You invest ₹5,000 in a mutual fund. The fund manager uses this money (along with money from other investors) to buy shares of companies like TCS, Infosys, HDFC Bank, and more. If these companies do well, your ₹5,000 grows. If you had to buy all these stocks individually, you'd need lakhs of rupees!</p>
+                </div>
+
+                <h2>Key Benefits</h2>
+                <ul>
+                    <li><strong>Professional management:</strong> Experts handle your investments</li>
+                    <li><strong>Diversification:</strong> Your money is spread across multiple stocks/bonds</li>
+                    <li><strong>Low investment:</strong> Start with as little as ₹500</li>
+                    <li><strong>Liquidity:</strong> Easy to buy and sell (for open-ended funds)</li>
+                    <li><strong>Regulated:</strong> SEBI ensures safety and transparency</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="cta-nav">
+            <a href="types-of-mf.html" class="btn-primary">Continue Learning →</a>
+            <a href="start.html" class="btn-secondary">Start Investing Now</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <svg width="24" height="24" fill="none"><path d="M6 26L12 20L18 24L26 12" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 12H26V18" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <span>FundWise</span>
+                    </div>
+                    <p>Empowering Gen-Z to make smart investment decisions.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Learn</h4>
+                    <a href="what-are-mf.html">What are Mutual Funds</a>
+                    <a href="types-of-mf.html">Types of Mutual Funds</a>
+                    <a href="sip-explained.html">SIP Explained</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Tools</h4>
+                    <a href="sip.html">SIP Calculator</a>
+                    <a href="start.html">Get Recommendations</a>
+                </div>
+                <div class="footer-col">
+    <h4>Legal</h4>
+    <a href="terms.html">Terms & Conditions</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="disclaimer.html">Disclaimer</a>
+</div>
+
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 FundWise. Educational purposes only. Not investment advice.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function initializeTheme() {
+            const theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            updateIcons(theme);
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            updateIcons(next);
+        }
+
+        function updateIcons(theme) {
+            ['theme-toggle', 'theme-toggle-mobile'].forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) {
+                    const sun = btn.querySelector('.sun-icon');
+                    const moon = btn.querySelector('.moon-icon');
+                    if (theme === 'dark') {
+                        sun.classList.remove('hidden');
+                        moon.classList.add('hidden');
+                    } else {
+                        sun.classList.add('hidden');
+                        moon.classList.remove('hidden');
+                    }
+                }
+            });
+        }
+
+        function toggleDropdown() {
+            document.getElementById('dropdown-menu').classList.toggle('active');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const menuIcon = document.querySelector('.menu-icon');
+            const closeIcon = document.querySelector('.close-icon');
+            menu.classList.toggle('active');
+            menuIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        }
+
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('dropdown-menu');
+            const btn = document.querySelector('.dropdown-btn');
+            if (dropdown && btn && !dropdown.contains(e.target) && !btn.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', initializeTheme);
+    </script>
+</body>
+</html>
