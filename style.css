@@ -794,34 +794,40 @@ body {
    DARK MODE – ICON VISIBILITY FIX
    ======================================== */
 
-[data-theme="dark"] .stat-icon svg {
-    stroke: #ffffff !important;
+/* ========================================
+   FINAL FIX: NAV & DROPDOWN ICONS (DARK MODE)
+   ======================================== */
+
+/* Ensure nav text + icons inherit correct color */
+.nav-link,
+.dropdown-btn {
+    color: var(--text-secondary);
 }
 
-[data-theme="dark"] .feature-icon svg {
-    stroke: #ffffff !important;
+/* SVG icons must follow text color */
+.dropdown-icon,
+.menu-icon,
+.close-icon,
+.theme-toggle svg {
+    color: currentColor;
+    stroke: currentColor;
+    fill: none;
 }
 
-[data-theme="dark"] .logo svg {
-    stroke: #ffffff !important;
-}
-.hero-with-visuals {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
+/* DARK MODE OVERRIDES */
+[data-theme="dark"] .nav-link,
+[data-theme="dark"] .dropdown-btn {
+    color: #ffffff;
 }
 
-@media (min-width: 1024px) {
-    .hero-with-visuals {
-        grid-template-columns: 1fr 1fr;
-        align-items: center;
-    }
+[data-theme="dark"] .dropdown-icon,
+[data-theme="dark"] .menu-icon,
+[data-theme="dark"] .close-icon,
+[data-theme="dark"] .theme-toggle svg {
+    color: #ffffff;
+    stroke: #ffffff;
 }
 
-.hero-visuals {
-    display: grid;
-    gap: 2rem;
-}
 /* ========================================
    HERO VISUAL FIX (CLEAN & SAFE)
    ======================================== */
