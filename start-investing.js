@@ -32,13 +32,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
             const res = await fetch(
-                "https://fundwise-backend.onrender.com/recommend-funds",
-                {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload)
-                }
-            );
+    "https://fundwise-backend.onrender.com/recommend-funds",
+    {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    }
+);
+
 
             if (!res.ok) {
                 throw new Error("Backend error");
