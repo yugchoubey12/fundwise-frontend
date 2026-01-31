@@ -31,11 +31,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            const res = await fetch("http://127.0.0.1:8000/recommend-funds", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
+            const res = await fetch(
+                "https://fundwise-backend.onrender.com/recommend-funds",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                }
+            );
+
+            if (!res.ok) {
+                throw new Error("Backend error");
+            }
 
             const data = await res.json();
             renderResults(data);
@@ -43,7 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
             formSection.classList.add("hidden");
             resultsSection.classList.remove("hidden");
 
-        } catch {
+        } catch (err) {
+            console.error(err);
             alert("Something went wrong. Please try again.");
         }
     });
@@ -124,7 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("user-type").innerText =
             `Built for ${data.investment_horizon} • ${data.risk_profile} style`;
 
-        /* Allocation legend */
         const legend = document.getElementById("allocation-legend");
         legend.innerHTML = "";
 
@@ -139,14 +146,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         renderDonutChart(data.allocation);
 
-        /* Allocation explanation */
-        const note = document.querySelector(".allocation-note");
-        note.innerHTML = `
+        document.querySelector(".allocation-note").innerHTML = `
             ${getGenZAllocationExplanation(data.allocation)}
             <a href="learn.html?topic=types-of-mf"> Learn how these funds work →</a>
         `;
 
-        /* Funds */
         const fundList = document.getElementById("fund-list");
         fundList.innerHTML = "";
 
@@ -184,27 +188,4 @@ document.addEventListener("DOMContentLoaded", () => {
             btn.classList.remove("active")
         );
     };
-
-    /* ================= DONUT TOOLTIP ================= */
-    const tooltip = document.createElement("div");
-    tooltip.id = "donut-tooltip";
-    document.body.appendChild(tooltip);
-
-    document.addEventListener("mousemove", e => {
-        tooltip.style.left = e.pageX + 12 + "px";
-        tooltip.style.top = e.pageY + 12 + "px";
-    });
-
-    document.addEventListener("mouseover", e => {
-        if (e.target.classList.contains("donut-segment")) {
-            tooltip.textContent = e.target.dataset.label;
-            tooltip.style.opacity = 1;
-        }
-    });
-
-    document.addEventListener("mouseout", e => {
-        if (e.target.classList.contains("donut-segment")) {
-            tooltip.style.opacity = 0;
-        }
-    });
 });
