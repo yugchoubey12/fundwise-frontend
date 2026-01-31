@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
             const res = await fetch(
-    "https://fundwise-backend.onrender.com/recommend-funds",
+    "https://fundwise-backend-mzxs.onrender.com/recommend-funds",
     {
         method: "POST",
         headers: {
@@ -41,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify(payload)
     }
 );
+
 
 
             if (!res.ok) {
@@ -54,9 +55,10 @@ document.addEventListener("DOMContentLoaded", () => {
             resultsSection.classList.remove("hidden");
 
         } catch (err) {
-            console.error(err);
-            alert("Something went wrong. Please try again.");
-        }
+    console.error("❌ FETCH ERROR:", err);
+    alert("Something went wrong. Check console.");
+}
+
     });
 
     /* ================= DONUT CHART ================= */
