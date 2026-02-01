@@ -1,64 +1,136 @@
-// SIP Calculator Logic
+// Initialize theme from localStorage or default to light
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateThemeIcons(savedTheme);
+}
 
+// Toggle theme
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcons(newTheme);
+}
+
+// Update theme icons
+function updateThemeIcons(theme) {
+    const sunIcons = document.querySelectorAll('.sun-icon');
+    const moonIcons = document.querySelectorAll('.moon-icon');
+    
+    if (theme === 'dark') {
+        sunIcons.forEach(icon => icon.classList.add('hidden'));
+        moonIcons.forEach(icon => icon.classList.remove('hidden'));
+    } else {
+        sunIcons.forEach(icon => icon.classList.remove('hidden'));
+        moonIcons.forEach(icon => icon.classList.add('hidden'));
+    }
+}
+
+// Toggle dropdown menu
+function toggleDropdown() {
+    const dropdown = document.getElementById('dropdown-menu');
+    dropdown.classList.toggle('active');
+}
+
+// Toggle mobile menu
+function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.querySelector('.menu-icon');
+    const closeIcon = document.querySelector('.close-icon');
+    
+    mobileMenu.classList.toggle('active');
+    menuIcon.classList.toggle('hidden');
+    closeIcon.classList.toggle('hidden');
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownMenu = document.getElementById('dropdown-menu');
+    
+    if (dropdown && !dropdown.contains(event.target)) {
+        dropdownMenu.classList.remove('active');
+    }
+});
+
+// Format currency in Indian style
+function formatCurrency(amount) {
+    return '₹' + amount.toLocaleString('en-IN', {
+        maximumFractionDigits: 0
+    });
+}
+
+// Calculate SIP returns
 function calculateSIP() {
     // Get input values
     const monthlyInvestment = parseFloat(document.getElementById('monthly-investment').value);
-    const rateOfReturn = parseFloat(document.getElementById('rate-of-return').value);
+    const annualRate = parseFloat(document.getElementById('rate-of-return').value);
     const timePeriod = parseInt(document.getElementById('time-period').value);
     
     // Update display values
-    document.getElementById('monthly-display').textContent = `₹${monthlyInvestment.toLocaleString('en-IN')}`;
-    document.getElementById('rate-display').textContent = `${rateOfReturn}%`;
+    document.getElementById('monthly-display').textContent = formatCurrency(monthlyInvestment);
+    document.getElementById('rate-display').textContent = `${annualRate}%`;
     document.getElementById('period-display').textContent = `${timePeriod} ${timePeriod === 1 ? 'Year' : 'Years'}`;
     
-    // Calculate SIP
-    const monthlyRate = rateOfReturn / 12 / 100;
-    const months = timePeriod * 12;
+    // Calculate SIP returns using the compound interest formula
+    // FV = P × [((1 + r)^n - 1) / r] × (1 + r)
+    const monthlyRate = annualRate / 12 / 100; // Convert annual rate to monthly decimal
+    const totalMonths = timePeriod * 12;
     
-    // SIP Future Value Formula
-    const futureValue = monthlyInvestment * (((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate));
-    const investedAmount = monthlyInvestment * months;
+    // Calculate future value
+    let futureValue;
+    if (monthlyRate === 0) {
+        // If rate is 0, simple multiplication
+        futureValue = monthlyInvestment * totalMonths;
+    } else {
+        futureValue = monthlyInvestment * 
+            (((Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate) * 
+            (1 + monthlyRate));
+    }
+    
+    // Calculate invested amount and returns
+    const investedAmount = monthlyInvestment * totalMonths;
     const estimatedReturns = futureValue - investedAmount;
     
-    // Format numbers
-    const invested = Math.round(investedAmount);
-    const returns = Math.round(estimatedReturns);
-    const total = Math.round(futureValue);
-    
-    // Update results display
-    document.getElementById('invested-amount').textContent = `₹${invested.toLocaleString('en-IN')}`;
-    document.getElementById('estimated-returns').textContent = `₹${returns.toLocaleString('en-IN')}`;
-    document.getElementById('total-value').textContent = `₹${total.toLocaleString('en-IN')}`;
-    
-    // Update chart display
-    const totalLakhs = (total / 100000).toFixed(1);
-    document.getElementById('total-display-chart').textContent = `₹${totalLakhs}L`;
+    // Update result displays
+    document.getElementById('invested-amount').textContent = formatCurrency(Math.round(investedAmount));
+    document.getElementById('estimated-returns').textContent = formatCurrency(Math.round(estimatedReturns));
+    document.getElementById('total-value').textContent = formatCurrency(Math.round(futureValue));
+    document.getElementById('total-display-chart').textContent = formatCurrency(Math.round(futureValue));
     
     // Update donut chart
-    updateDonutChart(invested, returns, total);
+    updateDonutChart(investedAmount, estimatedReturns);
 }
 
-function updateDonutChart(invested, returns, total) {
-    const circumference = 2 * Math.PI * 80; // radius = 80
+// Update the donut chart visualization
+function updateDonutChart(invested, returns) {
+    const total = invested + returns;
+    const investedPercentage = (invested / total) * 100;
+    const returnsPercentage = (returns / total) * 100;
     
-    const investedPercentage = invested / total;
-    const returnsPercentage = returns / total;
+    // Calculate stroke-dasharray values for the donut chart
+    const circumference = 2 * Math.PI * 80; // 80 is the radius
     
+    // Invested arc (green) - starts at top (12 o'clock position)
     const investedArc = document.getElementById('invested-arc');
+    const investedLength = (investedPercentage / 100) * circumference;
+    investedArc.setAttribute('stroke-dasharray', `${investedLength} ${circumference - investedLength}`);
+    investedArc.setAttribute('stroke-dashoffset', circumference * 0.25); // Start from top
+    investedArc.setAttribute('transform', 'rotate(-90 100 100)'); // Rotate to start from top
+    
+    // Returns arc (blue) - continues after invested arc to complete the circle
     const returnsArc = document.getElementById('returns-arc');
-    
-    // Set invested arc
-    const investedLength = circumference * investedPercentage;
-    investedArc.setAttribute('stroke-dasharray', `${investedLength} ${circumference}`);
-    investedArc.setAttribute('stroke-dashoffset', '0');
-    
-    // Set returns arc
-    const returnsLength = circumference * returnsPercentage;
-    returnsArc.setAttribute('stroke-dasharray', `${returnsLength} ${circumference}`);
-    returnsArc.setAttribute('stroke-dashoffset', `-${investedLength}`);
+    const returnsLength = (returnsPercentage / 100) * circumference;
+    returnsArc.setAttribute('stroke-dasharray', `${returnsLength} ${circumference - returnsLength}`);
+    // Offset to start where invested arc ends
+    returnsArc.setAttribute('stroke-dashoffset', circumference * 0.25 - investedLength);
+    returnsArc.setAttribute('transform', 'rotate(-90 100 100)'); // Rotate to start from top
 }
 
-// Calculate on page load
+// Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
-    calculateSIP();
+    initTheme();
+    calculateSIP(); // Calculate with default values
 });
